@@ -1,0 +1,13 @@
+# Go build artifacts
+/bin/
+/out/
+*.test
+*.out
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+
+# Docker
+.docker-build-cache/

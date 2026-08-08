@@ -66,9 +66,16 @@ func main() {
 
 	mux := http.NewServeMux()
 
+	// Stateless: true (homelab#755) -- without it the SDK requires the
+	// Mcp-Session-Id from a session's initialize handshake to be
+	// re-presented to the SAME replica on every subsequent request. A
+	// plain round-robin Service would break that the moment a follow-up
+	// lands on a different pod, blocking safe horizontal scaling. Matches
+	// the fix already applied to the Python (FastMCP) wrappers'
+	// stateless_http=True.
 	mcpHandler := mcp.NewStreamableHTTPHandler(
 		func(r *http.Request) *mcp.Server { return srv },
-		nil,
+		&mcp.StreamableHTTPOptions{Stateless: true},
 	)
 	mux.Handle("/mcp", mcpHandler)
 

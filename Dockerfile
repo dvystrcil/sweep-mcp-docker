@@ -8,7 +8,7 @@
 # baked into the Go binary at compile time.
 
 # ---- 1. build ----
-FROM golang:1.26-alpine AS build
+FROM golang:1.27-alpine AS build
 WORKDIR /src
 COPY go.mod go.sum* ./
 RUN --mount=type=cache,target=/root/.cache/go-build \

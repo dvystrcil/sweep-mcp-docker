@@ -9,6 +9,11 @@ on:
       - '.github/CODEOWNERS'
   pull_request:
   workflow_dispatch:
+    inputs:
+      release:
+        description: 'Publish a release (and deploy) after the build. The CVE loop sets false, verifies the scanned :dev, then releases (homelab#1694)'
+        type: boolean
+        default: true
 
 env:
   INTERNAL_REGISTRY: harbor-core.harbor.svc.cluster.local
@@ -100,6 +105,7 @@ jobs:
       - name: Create GitHub release
         # Patch++ off the latest release. Release-publish fires
         # docker-release.yaml which retags Harbor :dev as :X.Y.Z (no v).
+        if: github.event_name != 'workflow_dispatch' || inputs.release
         uses: dvystrcil/release-action@v0.1.1
         with:
           token: ${{ steps.app-token.outputs.token }}

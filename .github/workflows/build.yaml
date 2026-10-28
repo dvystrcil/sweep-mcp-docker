@@ -106,6 +106,6 @@ jobs:
         # Patch++ off the latest release. Release-publish fires
         # docker-release.yaml which retags Harbor :dev as :X.Y.Z (no v).
         if: github.event_name != 'workflow_dispatch' || inputs.release
-        uses: dvystrcil/release-action@v0.1.1
+        uses: dvystrcil/release-action@v0.2.1
         with:
           token: ${{ steps.app-token.outputs.token }}

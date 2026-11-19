@@ -22,7 +22,7 @@ env:
 
 jobs:
   test:
-    runs-on: sweep-mcp-docker-runner
+    runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
